@@ -1,3 +1,5 @@
+"use client";
+
 import { Card } from "@/components/ui/card";
 import {
   ArrowRight,
@@ -7,6 +9,7 @@ import {
   MessageSquare,
   VideoOffIcon,
 } from "lucide-react";
+import { useRouter } from "next/navigation"; // Import useRouter
 
 const tools = [
   {
@@ -47,6 +50,8 @@ const tools = [
 ];
 
 const Page = () => {
+  const router = useRouter(); // Call useRouter function here
+
   return (
     <div>
       <div className="mb-5 space-y-4">
@@ -65,12 +70,13 @@ const Page = () => {
       <div className="px-4 md:px-20 lg:px-32 space-y-4 md:pb-16">
         {tools.map((tool) => (
           <Card
+            onClick={() => router.push(tool.href)} // Use router.push here
             key={tool.href}
-            className={`p-4 border-black/5 flex items-center justify-between hover:shadow-md transition cursor-pointer  group`}
+            className={`p-4 border-black/5 flex items-center justify-between hover:shadow-md transition cursor-pointer group`}
           >
             <div className="flex items-center gap-x-4">
-              <div className="p-2 w-fit rounded-md">
-                <tool.icon className={`h-6 w-6 ${tool.color} `} />
+              <div className={`p-2 w-fit rounded-md ${tool.bgColor}`}>
+                <tool.icon className={`h-6 w-6 ${tool.color}`} />
               </div>
               <div className="font-semibold">{tool.label}</div>
             </div>
