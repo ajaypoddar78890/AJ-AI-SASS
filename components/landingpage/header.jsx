@@ -10,7 +10,7 @@ const NavBar = () => {
   return (
     <>
       {/* This example requires Tailwind CSS v2.0+ */}
-      <div className="relative container-fluid border-b-2 border-gray-100  shadow-sm">
+      <div className="relative container-fluid border-b-1 border-black bg-custom-bg  shadow-sm">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center   py-6 md:space-x-20">
             {/* Logo */}
@@ -27,13 +27,13 @@ const NavBar = () => {
               <div className="relative">
                 <button
                   type="button"
-                  className="group bg-white rounded-md  inline-flex items-center text-base font-medium    "
+                  className="group   rounded-md  inline-flex items-center text-base font-medium    "
                   onClick={() => {
                     setFlyer(!flyer);
                     setFlyerTwo(false);
                   }}
                 >
-                  <span className="text-lg font-semibold hover:text-red-600">
+                  <span className="text-lg font-medium hover:text-red-600">
                     Solutions
                   </span>
                   <svg
@@ -102,13 +102,13 @@ const NavBar = () => {
 
               <a
                 href="#"
-                className="text-lg font-semibold   hover:text-red-500 "
+                className="text-lg font-medium   hover:text-red-500 "
               >
                 Pricing
               </a>
               <a
                 href="#"
-                className="text-lg font-semibold   hover:text-red-500"
+                className="text-lg font-medium   hover:text-red-500"
               >
                 Docs
               </a>
@@ -116,13 +116,13 @@ const NavBar = () => {
               <div className="relative">
                 <button
                   type="button"
-                  className="group bg-white rounded-md   inline-flex items-center text-base font-medium    "
+                  className="group  rounded-md   inline-flex items-center text-base     "
                   onClick={() => {
                     setFlyerTwo(!flyerTwo);
                     setFlyer(false);
                   }}
                 >
-                  <span className="text-lg font-semibold hover:text-red-500 ">
+                  <span className="text-lg font-medium hover:text-red-500 ">
                     More
                   </span>
                   <svg
