@@ -100,16 +100,10 @@ const NavBar = () => {
                 </div>
               </div>
 
-              <a
-                href="#"
-                className="text-lg font-medium   hover:text-red-500 "
-              >
+              <a href="#" className="text-lg font-medium   hover:text-red-500 ">
                 Pricing
               </a>
-              <a
-                href="#"
-                className="text-lg font-medium   hover:text-red-500"
-              >
+              <a href="#" className="text-lg font-medium   hover:text-red-500">
                 Docs
               </a>
 

@@ -50,7 +50,8 @@ const config: Config = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
-        "custom-bg": "#dbd6cf", // Custom background color added
+        "custom-bg": "#efeae3",
+        "red-color": "fe330a",
       },
       borderRadius: {
         lg: "var(--radius)",
