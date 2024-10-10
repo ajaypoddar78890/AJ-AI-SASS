@@ -72,7 +72,7 @@ import { auth } from "@clerk/nextjs/server";
 
 // Initialize the OpenAI client
 const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // Ensure this is set in your environment
+  apiKey: process.env.OPEN_AI_kEY, // Ensure this is set in your environment
 });
 
 // Define the POST request handler
