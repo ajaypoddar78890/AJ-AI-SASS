@@ -1,6 +1,7 @@
 "use client";
 import * as z from "zod";
 import axios from "axios";
+import OpenAI from "openai";
 import { useForm } from "react-hook-form";
 import { formSchema } from "./constants";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,16 +15,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-// Define Message type
-type Message = {
-  role: "user" | "assistant";
-  content: string;
-};
+import { ChatCompletionMessage } from "openai/resources/index.mjs";
 
 const Page = () => {
   const router = useRouter();
-  const [message, setMessages] = useState<Message[]>([]); // Use correct Message type
+  const client = new OpenAI({ apiKey: process.env.OPEN_AI_kEY });
+  const [messages, setMessages] = useState<ChatCompletionMessage[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -36,52 +33,31 @@ const Page = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: Message = {
+      const userMessage: ChatCompletionMessage = {
         role: "user",
         content: values.prompt,
       };
-  
-      // Add the user's message to the top of the message list
-      setMessages((prev: Message[]) => [userMessage, ...prev]);
-  
-      // API call to Google Generative AI
+
+      const newMessages = [...messages, userMessage];
+
+      // Send request to your API endpoint
       const response = await axios.post("/api/conversation", {
-        messages: [userMessage, ...message], // Pass the updated message list
+        messages: newMessages,
       });
-  
-      // Log the complete response for debugging
-      console.log("API Response:", response.data);
-  
-      // Extract the assistant's response from the API response
-      const parts = response.data?.response?.parts;
-  
-      // Check if parts array exists and has at least one entry
-      if (Array.isArray(parts) && parts.length > 0) {
-        const assistantReply = parts[0]?.text || "No response";
-  
-        // Add the assistant's response right below the user's message
-        setMessages((prev: Message[]) => [
-          { role: "assistant", content: assistantReply },
-          ...prev,
-        ]);
-      } else {
-        console.error("No parts returned in response.");
-        setMessages((prev) => [
-          { role: "assistant", content: "Sorry, no response from the assistant." },
-          ...prev,
-        ]);
-      }
-  
-      // Clear the form after submission
-      form.reset();
-    } catch (error: unknown) {
-      console.error("Error occurred:", error);
-      setMessages((prev) => [
-        { role: "assistant", content: "Sorry, there was an error processing your request." },
-        ...prev,
-      ]);
+
+      const aiMessage: ChatCompletionMessage = {
+        role: "assistant",
+        content: response.data.choices[0].message.content, // Adjust based on actual response structure
+      };
+
+      // Update the state with new messages
+      setMessages((current) => [...current, userMessage, aiMessage]);
+      form.reset(); // Reset form field
+    } catch (error) {
+      console.error("Error during conversation:", error);
+      // Optionally, show an error message to the user
     } finally {
-      router.refresh();
+      router.refresh(); // Refresh the page or component
     }
   };
   
@@ -107,7 +83,7 @@ const Page = () => {
                 control={form.control}
                 name="prompt"
                 render={({ field }) => (
-                  <FormItem className="col-span-12 lg:col-span-10">
+                  <FormItem className="col-span-10">
                     <FormControl>
                       <Input
                         className="w-full border-0 outline-none  "
@@ -119,42 +95,27 @@ const Page = () => {
                   </FormItem>
                 )}
               />
-              <Button
-                className="col-span-12 lg:col-span-2 w-full"
-                disabled={isLoading}
-              >
+
+              <Button className="col-span-2 h-10" disabled={isLoading}>
                 Generate
               </Button>
             </form>
           </Form>
         </div>
-
-        <div>
-          {message.map((msg, index) => (
-            <div
-              key={index}
-              className={`mt-4 p-4 rounded-lg shadow-sm ${
-                msg.role === "user" ? "bg-blue-50" : "bg-gray-100"
-              }`}
-            >
-              <strong
-                className={`block mb-5 font- ${
-                  msg.role === "user" ? "text-blue-600" : "text-green-600"
+        <div className="space-y-4 mt-4">
+          <div className="flex flex-col-reverse gap-y-4">
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`p-2 rounded-lg ${
+                  message.role === "user" ? "bg-blue-200" : "bg-gray-100"
                 }`}
               >
-                {msg.role === "user" ? "You" : "Assistant"}:
-              </strong>
-
-              {/* Display the response as a list if multiple sentences */}
-              <ul className="list-disc pl-5">
-                {msg.content.split("\n").map((line, i) => (
-                  <li key={i} className="text-gray-700 leading-relaxed">
-                    {line}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                <strong>{message.role === "user" ? "You:" : "AI:"}</strong>{" "}
+                {message.content}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
