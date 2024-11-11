@@ -62,7 +62,7 @@ const FAQSection = () => {
             className="relative  whitespace-nowrap inline-flex items-center justify-center px-10 py-3 border border-black rounded-full shadow-lg text-base font-semibold text-white bg-black overflow-hidden group hover:text-white transform transition-transform duration-300 hover:scale-105"
           >
             <span className="absolute inset-0 bg-red-700 transform -translate-y-full transition-all duration-500 group-hover:translate-y-0" />
-            <span className="relative z-10">Ask Your Question</span>
+            <span className="relative z-10">FAQ</span>
           </Link>
         </div>
 
