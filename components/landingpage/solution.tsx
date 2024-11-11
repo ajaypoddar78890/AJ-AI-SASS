@@ -35,7 +35,7 @@ const Solution = () => {
           </div>
         </div>
         <div className="grid md:grid-cols-2 gap-16 mt-10 md:mt-32">
-          <div className="right w-full h-auto flex flex-col    px-6 md:px-12  ">
+          <div className="right w-full h-auto flex flex-col    px-6 md:px-12 ">
             {" "}
             <h2 className="text-4xl md:text-6xl   font-bold mb-8">
               Providing quick deploy solutions

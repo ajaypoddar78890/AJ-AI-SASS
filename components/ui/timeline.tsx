@@ -1,10 +1,5 @@
 "use client";
-import {
-  
-  useScroll,
-  useTransform,
-  motion,
-} from "framer-motion";
+import { useScroll, useTransform, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 
 interface TimelineEntry {
@@ -40,7 +35,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
       <div className="   container mx-auto py-10 px-4 md:px-8 lg:px-10">
         <h2 className="text-lg md:text-5xl  md:font-bold  mb-4 text-black dark:text-white  mx-auto">
           Changelog from my journey AJ-AI
-        </h2> 
+        </h2>
         <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-lg max-w-sm">
           I&apos;ve been working on Aceternity for the past 2 years. Here&apos;
           a timeline of my journey.
@@ -89,4 +84,4 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   );
 };
 
- export default Timeline
+export default Timeline;
