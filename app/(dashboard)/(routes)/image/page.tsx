@@ -34,10 +34,10 @@ export default function ImageUpload() {
 
   return (
     <div className="flex flex-col items-center justify-center p-5">
-      <h1 className="text-2xl font-bold mb-4">
+      <h1 className="text-2xl md:text-4xl font-bold mb-4">
         Image Upload for Tree Identification
       </h1>
-      <p className="mb-6 text-gray-700">
+      <p className="mb-6 text-gray-700  text-md  leading-6 max-w-6xl text-center">
         Transforming Images into Insights with AI. With Clarifai, you can
         leverage advanced artificial intelligence to analyze and understand
         images effortlessly. This powerful tool not only identifies objects and
@@ -47,8 +47,9 @@ export default function ImageUpload() {
       <input
         type="file"
         onChange={handleImageUpload}
-        className="mb-4 border-2 border-gray-300 p-2 rounded"
+        className="w-full mb-4 border-2 border-gray-300 p-2 roundedm max-w-5xl"
       />
+
       {image && (
         <Image
           width={500}
@@ -59,7 +60,7 @@ export default function ImageUpload() {
         />
       )}
       {results && (
-        <div className="bg-gray-100 p-4 rounded shadow-md w-full max-w-lg">
+        <div className="bg-gray-100 p-4 rounded shadow-md w-full ">
           <h3 className="text-xl font-semibold mb-2">Results:</h3>
           <ul className="list-disc list-inside">
             {results.concepts.map((concept: any, index: number) => (

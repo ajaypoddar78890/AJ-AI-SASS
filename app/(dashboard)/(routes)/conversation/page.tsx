@@ -101,7 +101,7 @@ const Page = () => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2"
+              className="rounded-lg border w-full   focus-within:shadow-sm grid grid-cols-12 gap-2"
             >
               <FormField
                 control={form.control}
@@ -110,7 +110,7 @@ const Page = () => {
                   <FormItem className="col-span-12 lg:col-span-10">
                     <FormControl>
                       <Input
-                        className="w-full border-0 outline-none focus:ring-0"
+                        className="w-full border-0 outline-none  "
                         placeholder="Enter your prompt here ..."
                         disabled={isLoading}
                         {...field}
