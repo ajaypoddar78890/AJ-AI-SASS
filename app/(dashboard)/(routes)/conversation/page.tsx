@@ -60,7 +60,6 @@ const Page = () => {
       router.refresh(); // Refresh the page or component
     }
   };
-  
 
   return (
     <div>
