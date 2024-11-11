@@ -71,11 +71,11 @@ const FAQSection = () => {
           {faqs.map((faq, index) => (
             <div key={index} className="border-b border-gray-400">
               <button
-                className="w-full text-left text-md font-medium py-3 flex justify-between items-center"
+                className="w-full text-left text-lg font-medium py-3 flex justify-between items-center"
                 onClick={() => toggleAccordion(index)}
               >
                 {faq.question}
-                <span className="text-orange-700 font-semibold">
+                <span className="text-orange-700 font-bold">
                   {activeIndex === index ? "-" : "+"}
                 </span>
               </button>

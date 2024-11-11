@@ -20,11 +20,11 @@ export const GoogleGeminiEffect = ({
   className?: string;
 }) => {
   return (
-    <div className={cn("sticky top-80  w-full] ", className)}>
-      <p className="text-lg md:text-7xl font-semibold pb-4 md:pb-10 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-300">
+    <div className={cn("sticky top-80  w-full ] ", className)}>
+      <p className="text-3xl md:text-7xl font-semibold  md:pb-10 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-300">
         {title || `Build with AJ-AI SASS`}
       </p>
-      <p className="text-xs md:text-xl font-normal text-center text-neutral-400 mt-4 max-w-4xl mx-auto">
+      <p className="text-sm px-5   md:text-xl font-normal md:text-center text-neutral-400  mb-2 max-w-4xl mx-auto">
         {description ||
           `
 Enhance productivity and streamline operations with our AI integration. Tailored for users and companies, our AI solution delivers automation, smarter insights, and personalization. Transform your workflow today—integrate with us!`}
