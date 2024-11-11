@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className="hero-section w-full  bg-custom-bg flex">
+    <div className="hero-section w-full  bg-custom-bg flex lg:text-center">
       <div className="container mx-auto px-4">
         <div className="content flex flex-col justify-center   md:max-w-5xl mx-auto pt-5   md:mb-20 mb-5">
           <h3 className="text-focus-in text-4xl font-semibold mb-3 md:text-8xl md:mt-20 md:font-bold">
@@ -26,7 +26,7 @@ const Hero = () => {
             </button>
           </div>
         </div>
-        <div className="buttonanimation hero-dashboard relative mx-auto h-[40vh]   md:h-[80vh] max-w-8xl mb-20  border-b ">
+        <div className="buttonanimation hero-dashboard relative mx-auto h-[40vh]   md:h-[80vh] max-w-8xl mb-10 md:mb-16  border-b ">
           <Image
             src="/assets/images/hero-dashboard.webp"
             alt="Hero Dashboard"

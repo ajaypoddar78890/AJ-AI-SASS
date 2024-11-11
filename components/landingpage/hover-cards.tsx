@@ -2,7 +2,7 @@ import { HoverEffect } from "../ui/card-hover-effect";
 
 export function CardHoverEffectDemo() {
   return (
-    <div className="container-fluid bg-black py-5 md:py-10 ">
+    <div className="container-fluid bg-black py-5 md:py-10n md:text-center ">
       <div className=" container   mx-auto px-8   ">
         <div className="content   mt-10 max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-6xl text-white font-bold">

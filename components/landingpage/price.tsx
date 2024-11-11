@@ -16,7 +16,7 @@ const Price = () => {
   return (
     <section className="px-6 py-20 bg-custom-bg">
       <div className="container mx-auto text-center mb-8  ">
-        <h2 className="text-7xl font-bold max-w-3xl mx-auto leading-tight">
+        <h2 className="  text-3xl md:text-6xl lg:text-7xl font-bold max-w-3xl mx-auto leading-tight">
           Cost-effectively build any software
         </h2>
         {/* <p className="text-gray-500">Select the plan that fits your needs</p> */}
@@ -67,7 +67,7 @@ const Price = () => {
       </div>
 
       {/* Pricing Cards */}
-      <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto ">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:max-w-7xl mx-auto ">
         {/* Beginner Plan */}
         <div className="relative bg-white py-16 px-8 md:px-10 border rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-transform duration-300 ease-in-out">
           {/* Popular badge */}

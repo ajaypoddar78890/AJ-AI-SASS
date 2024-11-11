@@ -8,6 +8,7 @@ import {
   VideotapeIcon,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const routes = [
   {
@@ -23,7 +24,7 @@ const routes = [
     color: "text-violet-500", // Icon color
   },
   {
-    label: "Image Generation",
+    label: "object identifier",
     icon: ImagesIcon,
     href: "/image",
     color: "text-yellow-500", // Icon color
@@ -57,9 +58,11 @@ const routes = [
 const Sidebar = () => {
   return (
     <div className="space-y-4 py-4 flex flex-col h-full bg-black text-white">
-      <div className="px-3 py-2 flex-1">
-        <Link href={"/dashbord"}>AJ - AI</Link>
-        <div className="space-y-1">
+      <div className="px-3 py-2 flex-1 ">
+        <Link className="" href={"/"}>
+          <h3 className="md:text-2xl font-semibold pl-3 pb-5">AJ-AI</h3>
+        </Link>
+        <div className="space-y-3">
           {routes.map((route) => (
             <Link
               key={route.label}

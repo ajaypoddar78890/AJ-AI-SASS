@@ -20,7 +20,7 @@ const tools = [
     href: "/conversation",
   },
   {
-    label: "Image Generation",
+    label: "Object Identifier",
     icon: ImageDownIcon,
     color: "text-green-500",
     bgColor: "bg-green-500/10",

@@ -55,9 +55,9 @@ const AIPowered = () => {
   };
 
   return (
-    <div className="aipowered-section px-6 py-10 md:px-10">
+    <div className="aipowered-section px-5 py-10 md:px-10">
       <div className="container mx-auto md:max-w-7xl">
-        <div className="grid md:grid-cols-2 rounded-3xl overflow-hidden relative xl:h-[60vh]">
+        <div className="grid md:grid-cols-2 md:rounded-3xl rounded-xl overflow-hidden relative   h-full">
           {/* Left Side: Image */}
           <div className="relative h-60 md:h-auto">
             <Image
@@ -91,8 +91,8 @@ const AIPowered = () => {
           </div>
 
           {/* Right Side: Content */}
-          <div className="flex flex-col justify-between bg-black text-white p-6 rounded-xl md:rounded-l-none">
-            <div className="content py-6 md:py-10">
+          <div className="flex flex-col justify-between bg-black text-white p-6  rounded- md:rounded-l-none">
+            <div className="content py-2 md:py-10">
               <h2 className="text-3xl md:text-5xl font-bold my-4">
                 AI-powered to streamline tasks
               </h2>
@@ -105,7 +105,7 @@ const AIPowered = () => {
 
             {/* Numbers Section */}
             <div
-              className="numbers grid grid-cols-2 gap-4 bg-gray-900 rounded-xl p-6 "
+              className="numbers grid grid-cols-2 gap-4 bg-gray-900 rounded-xl p-6  my-5"
               ref={numbersRef}
             >
               <div>
@@ -118,7 +118,9 @@ const AIPowered = () => {
                 <h3 className="text-3xl md:text-5xl font-bold text-orange-600">
                   {count2} %
                 </h3>
-                <p className="text-sm md:text-lg">Using financial institutions</p>
+                <p className="text-sm md:text-lg">
+                  Using financial institutions
+                </p>
               </div>
             </div>
           </div>
