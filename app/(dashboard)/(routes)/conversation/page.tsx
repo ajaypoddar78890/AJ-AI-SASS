@@ -1,7 +1,6 @@
 "use client";
 import * as z from "zod";
 import axios from "axios";
-import OpenAI from "openai";
 import { useForm } from "react-hook-form";
 import { formSchema } from "./constants";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,12 +14,16 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ChatCompletionMessage } from "openai/resources/index.mjs";
+
+// Define Message type
+type Message = {
+  role: "user" | "assistant";
+  content: string;
+};
 
 const Page = () => {
   const router = useRouter();
-  const client = new OpenAI({ apiKey: process.env.OPEN_AI_kEY });
-  const [messages, setMessages] = useState<ChatCompletionMessage[]>([]);
+  const [message, setMessages] = useState<Message[]>([]); // Use correct Message type
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -33,34 +36,60 @@ const Page = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionMessage = {
+      const userMessage: Message = {
         role: "user",
         content: values.prompt,
       };
 
-      const newMessages = [...messages, userMessage];
+      // Add the user's message to the top of the message list
+      setMessages((prev: Message[]) => [userMessage, ...prev]);
 
-      // Send request to your API endpoint
+      // API call to Google Generative AI
       const response = await axios.post("/api/conversation", {
-        messages: newMessages,
+        messages: [userMessage, ...message], // Pass the updated message list
       });
 
-      const aiMessage: ChatCompletionMessage = {
-        role: "assistant",
-        content: response.data.choices[0].message.content, // Adjust based on actual response structure
-      };
+      // Log the complete response for debugging
+      console.log("API Response:", response.data);
 
-      // Update the state with new messages
-      setMessages((current) => [...current, userMessage, aiMessage]);
-      form.reset(); // Reset form field
-    } catch (error) {
-      console.error("Error during conversation:", error);
-      // Optionally, show an error message to the user
+      // Extract the assistant's response from the API response
+      const parts = response.data?.response?.parts;
+
+      // Check if parts array exists and has at least one entry
+      if (Array.isArray(parts) && parts.length > 0) {
+        const assistantReply = parts[0]?.text || "No response";
+
+        // Add the assistant's response right below the user's message
+        setMessages((prev: Message[]) => [
+          { role: "assistant", content: assistantReply },
+          ...prev,
+        ]);
+      } else {
+        console.error("No parts returned in response.");
+        setMessages((prev) => [
+          {
+            role: "assistant",
+            content: "Sorry, no response from the assistant.",
+          },
+          ...prev,
+        ]);
+      }
+
+      // Clear the form after submission
+      form.reset();
+    } catch (error: unknown) {
+      console.error("Error occurred:", error);
+      setMessages((prev) => [
+        {
+          role: "assistant",
+          content: "Sorry, there was an error processing your request.",
+        },
+        ...prev,
+      ]);
     } finally {
-      router.refresh(); // Refresh the page or component
+      router.refresh();
     }
   };
-  
 
   return (
     <div>
@@ -77,16 +106,16 @@ const Page = () => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="rounded-lg border w-full   focus-within:shadow-sm grid grid-cols-12 gap-2"
+              className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2"
             >
               <FormField
                 control={form.control}
                 name="prompt"
                 render={({ field }) => (
-                  <FormItem className="col-span-10">
+                  <FormItem className="col-span-12 lg:col-span-10">
                     <FormControl>
                       <Input
-                        className="w-full border-0 outline-none  "
+                        className="w-full border-0 outline-none focus:ring-0"
                         placeholder="Enter your prompt here ..."
                         disabled={isLoading}
                         {...field}
@@ -95,27 +124,42 @@ const Page = () => {
                   </FormItem>
                 )}
               />
-
-              <Button className="col-span-2 h-10" disabled={isLoading}>
+              <Button
+                className="col-span-12 lg:col-span-2 w-full"
+                disabled={isLoading}
+              >
                 Generate
               </Button>
             </form>
           </Form>
         </div>
-        <div className="space-y-4 mt-4">
-          <div className="flex flex-col-reverse gap-y-4">
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`p-2 rounded-lg ${
-                  message.role === "user" ? "bg-blue-200" : "bg-gray-100"
+
+        <div>
+          {message.map((msg, index) => (
+            <div
+              key={index}
+              className={`mt-4 p-4 rounded-lg shadow-sm ${
+                msg.role === "user" ? "bg-blue-50" : "bg-gray-100"
+              }`}
+            >
+              <strong
+                className={`block mb-5 font- ${
+                  msg.role === "user" ? "text-blue-600" : "text-green-600"
                 }`}
               >
-                <strong>{message.role === "user" ? "You:" : "AI:"}</strong>{" "}
-                {message.content}
-              </div>
-            ))}
-          </div>
+                {msg.role === "user" ? "You" : "Assistant"}:
+              </strong>
+
+              {/* Display the response as a list if multiple sentences */}
+              <ul className="list-disc pl-5">
+                {msg.content.split("\n").map((line, i) => (
+                  <li key={i} className="text-gray-700 leading-relaxed">
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </div>
